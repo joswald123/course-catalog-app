@@ -7,17 +7,18 @@ const Courses = () => {
   useEffect(() => {
     fetch(`http://localhost:5000/api/courses`)
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setCourses(res);
+      .then(data => {
+        console.log(data);
+        setCourses(data);
       })
       .catch((err) => console.log(err));
   }, []);
+  
+  console.log(courses);
 
   return (
-    <div className="wrap main--grid">
-      
-        { courses.map((course)=> {
+    <div className="wrap main--grid">   
+        { courses.map( course => {
             <Link className="course--module course--link" to={`/courses/${course.id}`}>
                 <h2 className="course--label">Course</h2>
                 <h3 className="course--title" key={ course.id }>{ course.title }</h3>;

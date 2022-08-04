@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
+import Data from './Data';
 
 const Context = React.createContext(); 
 
 export class Provider extends Component {
 
+  state = {
+    courses: null,
+    course: null
+  };
+
   constructor() {
     super();
+    this.data = new Data();
+    this.state = this.state
   }
   
 
   render() {
-
+    const { course, courses } = this.state;
+    
     const value = {
-        data: this.data,
+      course,
+      courses,
+      data: this.data,
     };
     
     return (
