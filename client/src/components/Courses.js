@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import Context  from "../Context";
-import { default as Data } from '../Data'
+import { Context }  from "../Context";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
-//   const { data }  = useContext(Context);
-  const data = new Data();
+  const context = useContext(Context);
     
   useEffect(() => {
-    data.getCourses()
+    context.data.getCourses()
     .then((courses) => {
         if(courses) {
             setCourses(courses)
@@ -19,7 +17,6 @@ const Courses = () => {
     })
   }, []);
   
-//   console.log(courses);
 
   return (
     <div className="wrap main--grid">   

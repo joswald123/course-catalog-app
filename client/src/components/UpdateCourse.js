@@ -100,7 +100,7 @@ const UpdateCourse = () => {
       cancel={cancel}
       errors={course.errors}
       submit={submit}
-      submitButtonText="Sign Up"
+      submitButtonText="Update"
       elements={() => ( // render prop
         <React.Fragment>
           <div className="main--flex">

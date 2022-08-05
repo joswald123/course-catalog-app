@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
+import Cookies from 'js-cookie';
+
 import Data from './Data';
 
 export const Context = React.createContext(); 
 
 export class Provider extends Component {
 
-  state = {
-    authenticatedUser: null,
-    courses: null,
-    course: null
-  };
-
   constructor() {
     super();
     this.data = new Data();
-    this.state = this.state
+    this.cookie = Cookies.get('authenticatedUser');
   }
   
+  state = {
+    authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null,
+    courses: null,
+    course: null
+  };
 
   render() {
     const { authenticatedUser, course, courses } = this.state;
@@ -28,7 +29,7 @@ export class Provider extends Component {
       data: this.data,
       actions: { // Add the 'actions' property and object
         signIn: this.signIn,
-      
+        signOut: this.signOut
       },
       
     };
@@ -40,42 +41,32 @@ export class Provider extends Component {
     );
   }
 
+  // Function to sign In an user
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
       this.setState(() => {
+        user.password = password;
         return {
           authenticatedUser: user,
         };
       });
+      // Set cookie
+      Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
     }
     return user;
   }
 
-  // signIn = async (emailAddress, password) => {
-  //   const user = await this.data.getUser(emailAddress, password);
-  //   if (user !== null) {
-  //     this.setState(() => {
-  //       user.password = password;
-  //       return {
-  //         authenticatedUser: user,
-  //       };
-  //     });
-  //     // Set cookie
-  //     // Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
-  //   }
-  //   return user;
-  // }
-
-  // Function to sign out a user
+  // Function to sign out an user
   signOut = () => {
     this.setState(() => {
       return {
         authenticatedUser: null,
       };
     });
-    // Cookies.remove('authenticatedUser');
+    Cookies.remove('authenticatedUser');
   }
+
 }
 
 export const Consumer = Context.Consumer;

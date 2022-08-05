@@ -22,30 +22,57 @@ const CourseDetail = () => {
 
 
     // delete function - btn
-    function handleDeleteCourse () {
-        fetch(`http://localhost:5000/api/courses/` + id, {
-            method: 'DELETE',
-            // headers: {
-            //     'Content-Type': 'application/json',
-            //     Authorization:
-            //       'Basic ' +
-            //       Buffer.from(
-            //         `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-            //       ).toString('base64'),
-            //   },
-            //   body: null,
-        }).then((response) => {
-            if (response.status === 204) {
-              alert('Course successfully delete!.');
-            } else if (response.status === 400) {
-              response.json().then((data) => {
-                return data.errors;
-              });
+    function handleDeleteCourse() {
+        const authUser = context.authenticatedUser;
+        console.log(authUser.emailAddress, authUser.password)
+        const emailAddress = authUser.emailAddress;
+        const password = authUser.password;
+
+        context.data.deleteCourse(id, true, emailAddress, password)
+        .then(course => {
+            if(course === null) {
+                this.setState(() => {
+                    alert('Access Denied. Please signIn with your account!');
+                });
             } else {
-              throw new Error();
+                this.props.history.push('/');
+                alert(`SUCCESS! Your Course was removed`);
             }
-          });
-        };
+        })
+        .catch( err => {
+            console.log(err);
+            this.props.history.push('/error');
+        })
+    }
+
+
+
+
+
+    // function handleDeleteCourse () {
+    //     fetch(`http://localhost:5000/api/courses/` + id, {
+    //         method: 'DELETE',
+    //         // headers: {
+    //         //     'Content-Type': 'application/json',
+    //         //     Authorization:
+    //         //       'Basic ' +
+    //         //       Buffer.from(
+    //         //         `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
+    //         //       ).toString('base64'),
+    //         //   },
+    //         //   body: null,
+    //     }).then((response) => {
+    //         if (response.status === 204) {
+    //           alert('Course successfully delete!.');
+    //         } else if (response.status === 400) {
+    //           response.json().then((data) => {
+    //             return data.errors;
+    //           });
+    //         } else {
+    //           throw new Error();
+    //         }
+    //       });
+    //     };
 
     
     // link to {updateCourse} - (function update)
