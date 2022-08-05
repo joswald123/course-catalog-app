@@ -1,29 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import Context  from "../Context";
+import { default as Data } from '../Data'
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
-
+//   const { data }  = useContext(Context);
+  const data = new Data();
+    
   useEffect(() => {
-    fetch(`http://localhost:5000/api/courses`)
-      .then((res) => res.json())
-      .then(data => {
-        console.log(data);
-        setCourses(data);
-      })
-      .catch((err) => console.log(err));
+    data.getCourses()
+    .then((courses) => {
+        if(courses) {
+            setCourses(courses)
+        } else {
+            console.log("Error");
+        }
+    })
   }, []);
   
-  console.log(courses);
+//   console.log(courses);
 
   return (
     <div className="wrap main--grid">   
-        { courses.map( course => {
-            <Link className="course--module course--link" to={`/courses/${course.id}`}>
+        { courses.map( course => (
+            <Link className="course--module course--link" key={course.id} to={`/courses/${course.id}`}>
                 <h2 className="course--label">Course</h2>
-                <h3 className="course--title" key={ course.id }>{ course.title }</h3>;
+                <h3 className="course--title" key={ course.id }>{ course.title }</h3>
             </Link>
-        })}
+        ))}
       
       <a className="course--module course--add--module" href="create-course.html">
         <span className="course--add--title">

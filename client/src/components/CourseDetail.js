@@ -1,34 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
+import Context   from "../Context.js";
+// import { default as Data } from '../Data'
 
 
 const CourseDetail = () => {
 
     const { id } = useParams();
+    const { data }  = useContext(Context);
     const [course, setCourse] = useState([]);
+    // const data = new Data();
 
     useEffect(() => {
-      fetch(`http://localhost:5000/api/courses/${id}`)
-        .then((res) => res.json())
-        .then(data => {
-          console.log(data);
-          setCourse(data);
-        })
-        .catch((err) => console.log(err));
+        data.getCourse(id)
+        .then((course) => {
+            if(course) {
+                setCourse(course)
+            } else {
+                console.log("Error");
+            }
+      })
     }, []);
+    console.log(course);
     
 
     // delete function - btn
     function handleDeleteCourse () {
         fetch(`http://localhost:5000/api/courses/` + id, {
             method: 'DELETE',
-        })
-        .then( function() {
-            alert("Course successfully deleted!")
-        })
-        .catch(err => console.log(err))
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization:
+            //       'Basic ' +
+            //       Buffer.from(
+            //         `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
+            //       ).toString('base64'),
+            //   },
+            //   body: null,
+        }).then((response) => {
+            if (response.status === 204) {
+              alert('Course successfully delete!.');
+            } else if (response.status === 400) {
+              response.json().then((data) => {
+                return data.errors;
+              });
+            } else {
+              throw new Error();
+            }
+          });
+        };
 
-    }
     
     // link to {updateCourse} - (function update)
 

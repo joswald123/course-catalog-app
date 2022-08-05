@@ -19,7 +19,7 @@ export default class Data {
 
     // Check if auth is required
     if (requiresAuth) {    
-      const encodedCredentials = Buffer.from(`${credentials.username}:${credentials.password}`
+      const encodedCredentials = Buffer.from(`${credentials.emailAddress}:${credentials.password}`
       ).toString('base64');
 
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
@@ -57,7 +57,7 @@ export default class Data {
   }
 
   async getCourses() { 
-    const response = await this.api(`/courses`, 'GET', null, true);
+    const response = await this.api(`/courses`, 'GET', null);
     if (response.status === 200) {
       return response.json().then(data => data);
     }

@@ -2,33 +2,39 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Routes,
+  Switch,
 } from 'react-router-dom';
 
 
 import Courses from './components/Courses';
-import Layout from './components/Layout';
 import CourseDetail from './components/CourseDetail';
 import UpdateCourse from './components/UpdateCourse';
+import Header from './components/Header';
+import NotFound from './components/NotFound';
+import UserSignUp from './components/UserSignUp';
+import UserSignIn from './components/UserSignIn';
 
 import withContext from "./Context";
 
 
 
-
-const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
 
 function App() {
   return (
     <Router>
       <div>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<CoursesWithContext />} />
-            <Route path="courseDetail/:id" element={<CourseDetail />} />
-            <Route path="updateCourse/:id" element={<UpdateCourse />} />
-          </Route>
-        </Routes>
+        <Header />
+        <Switch>
+            <Route exact path="/" component={() => <Courses />}/>
+            <Route path="/signin" component={UserSignInWithContext} />
+            <Route path="/signup" component={UserSignUpWithContext} />
+            <Route path="courses/:id" component={CourseDetailWithContext} />
+            <Route path="updateCourse/:id" component={UpdateCourse} />
+            <Route component={NotFound} />
+        </Switch>
       </div>
     </Router>
   );

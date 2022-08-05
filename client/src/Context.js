@@ -6,6 +6,7 @@ const Context = React.createContext();
 export class Provider extends Component {
 
   state = {
+    authenticatedUser: null,
     courses: null,
     course: null
   };
@@ -18,12 +19,18 @@ export class Provider extends Component {
   
 
   render() {
-    const { course, courses } = this.state;
-    
+    const { authenticatedUser, course, courses } = this.state;
+
     const value = {
+      authenticatedUser,
       course,
       courses,
       data: this.data,
+      actions: { // Add the 'actions' property and object
+        signIn: this.signIn,
+      
+      },
+      
     };
     
     return (
@@ -33,13 +40,34 @@ export class Provider extends Component {
     );
   }
 
-  
-  signIn = async () => {
-
+  signIn = async (emailAddress, password) => {
+    const user = await this.data.getUser(emailAddress, password);
+    return user;
   }
 
-  signOut = () => {
+  // signIn = async (emailAddress, password) => {
+  //   const user = await this.data.getUser(emailAddress, password);
+  //   if (user !== null) {
+  //     this.setState(() => {
+  //       user.password = password;
+  //       return {
+  //         authenticatedUser: user,
+  //       };
+  //     });
+  //     // Set cookie
+  //     // Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
+  //   }
+  //   return user;
+  // }
 
+  // Function to sign out a user
+  signOut = () => {
+    this.setState(() => {
+      return {
+        authenticatedUser: null,
+      };
+    });
+    // Cookies.remove('authenticatedUser');
   }
 }
 
