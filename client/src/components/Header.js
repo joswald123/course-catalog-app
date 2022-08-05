@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context }  from "../Context.js";
 
 const Header = () => {
-    const context = useContext(Context.Context);
+    const context = useContext(Context);
     const authUser = context.authenticatedUser;
     
     return (

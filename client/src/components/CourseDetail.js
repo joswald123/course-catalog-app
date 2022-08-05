@@ -7,9 +7,8 @@ import { Context }   from "../Context";
 const CourseDetail = () => {
 
     const { id } = useParams();
-    const context = useContext(Context.Context);
+    const context = useContext(Context);
     const [course, setCourse] = useState([]);
-    // const data = new Data();
 
     useEffect(() => {
         context.data.getCourse(id)
