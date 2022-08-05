@@ -24,19 +24,17 @@ const CourseDetail = () => {
     // delete function - btn
     function handleDeleteCourse() {
         const authUser = context.authenticatedUser;
-        console.log(authUser.emailAddress, authUser.password)
-        const emailAddress = authUser.emailAddress;
-        const password = authUser.password;
+        const { emailAddress, password } = authUser
+        console.log(emailAddress, password);
 
-        context.data.deleteCourse(id, true, emailAddress, password)
+        context.data.deleteCourse(id, true, { emailAddress, password })
         .then(course => {
             if(course === null) {
-                this.setState(() => {
                     alert('Access Denied. Please signIn with your account!');
-                });
+    
             } else {
                 this.props.history.push('/');
-                alert(`SUCCESS! Your Course was removed`);
+                alert('SUCCESS! Your Course was removed');
             }
         })
         .catch( err => {
@@ -44,9 +42,6 @@ const CourseDetail = () => {
             this.props.history.push('/error');
         })
     }
-
-
-
 
 
     // function handleDeleteCourse () {
@@ -73,12 +68,6 @@ const CourseDetail = () => {
     //         }
     //       });
     //     };
-
-    
-    // link to {updateCourse} - (function update)
-
-    // Auth practice.
-
 
     return(
         <div>
