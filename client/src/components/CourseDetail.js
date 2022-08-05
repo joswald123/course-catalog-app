@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
-import Context   from "../Context.js";
+import { Link, useParams } from "react-router-dom";
+import Context   from "../Context";
 // import { default as Data } from '../Data'
 
 
 const CourseDetail = () => {
 
     const { id } = useParams();
-    const { data }  = useContext(Context);
+    const context = useContext(Context.Context);
     const [course, setCourse] = useState([]);
     // const data = new Data();
 
     useEffect(() => {
-        data.getCourse(id)
+        context.data.getCourse(id)
         .then((course) => {
             if(course) {
                 setCourse(course)

@@ -17,16 +17,18 @@ import UserSignIn from './components/UserSignIn';
 import withContext from "./Context";
 
 
-
-const CourseDetailWithContext = withContext(CourseDetail);
+const HeaderWithContext = withContext(Header);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const CourseDetailWithContext = withContext(CourseDetail);
+
+
 
 function App() {
   return (
     <Router>
       <div>
-        <Header />
+        <HeaderWithContext />
         <Switch>
             <Route exact path="/" component={() => <Courses />}/>
             <Route path="/signin" component={UserSignInWithContext} />
