@@ -27,7 +27,7 @@ const CourseDetail = () => {
         const { emailAddress, password } = authUser
         console.log(emailAddress, password);
 
-        context.data.deleteCourse(id, true, { emailAddress, password })
+        context.data.deleteCourse(id, {emailAddress, password})
         .then(course => {
             if(course === null) {
                     alert('Access Denied. Please signIn with your account!');
