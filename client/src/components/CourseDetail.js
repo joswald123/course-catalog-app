@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context }   from "../Context";
-// import { default as Data } from '../Data'
 
 
 const CourseDetail = () => {
@@ -20,8 +19,7 @@ const CourseDetail = () => {
             }
       })
     }, []);
-    console.log(course);
-    
+
 
     // delete function - btn
     function handleDeleteCourse () {

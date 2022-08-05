@@ -38,7 +38,7 @@ export default class UserSignUp extends Component {
                   value={firstName} 
                   onChange={this.change} 
                   placeholder="First Name" />
-                <input 
+                  <input 
                   id="lastName" 
                   name="lastName" 
                   type="text"

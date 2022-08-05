@@ -13,8 +13,10 @@ const Header = () => {
                 <nav>
                     {authUser ?
                         <React.Fragment>
-                        <span>Welcome, {authUser.name}!</span>
-                        <Link to="/signout">Sign Out</Link>
+                            <ul className="header--signedout">
+                                <li><span>Welcome, {authUser.firstName}!</span></li>
+                                <li><Link to="/signout">Sign Out</Link></li>
+                            </ul>
                         </React.Fragment>
                     :
                         <React.Fragment>

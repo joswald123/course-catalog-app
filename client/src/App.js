@@ -13,6 +13,8 @@ import Header from './components/Header';
 import NotFound from './components/NotFound';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
+import PrivateRoute from './PrivateRoute';
+
 
 import withContext from "./Context";
 
@@ -30,11 +32,11 @@ function App() {
       <div>
         <HeaderWithContext />
         <Switch>
-            <Route exact path="/" component={() => <Courses />}/>
+            <Route exact path="/" component={() => <Courses />}/> 
             <Route path="/signin" component={UserSignInWithContext} />
             <Route path="/signup" component={UserSignUpWithContext} />
-            <Route path="courses/:id" component={CourseDetailWithContext} />
-            <Route path="updateCourse/:id" component={UpdateCourse} />
+            <Route path="/courses/:id" component={CourseDetailWithContext} />
+            <PrivateRoute path="/updateCourse/:id" component={UpdateCourse} />
             <Route component={NotFound} />
         </Switch>
       </div>
