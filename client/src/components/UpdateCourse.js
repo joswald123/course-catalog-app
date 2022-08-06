@@ -5,13 +5,18 @@ import Form from './Form';
 
 
 const UpdateCourse = () => {
-
+  // Declaring Context Variable
   const  context  = useContext(Context);
+  // Id course params  
   const { id } = useParams();
+  // Authenticated user from Context
   const authUser = context.authenticatedUser;
+  // useHistory Hook
   let history = useHistory();
   
+  // Initial state for errors
   const [ errors, setErrors ] = useState([]);
+  // Initial state for course
   const [course, setCourse] = useState({
       title: '',
       description: '',
@@ -19,6 +24,7 @@ const UpdateCourse = () => {
       materialsNeeded: '',
   });
 
+  // Fetch API call from Data.js using Context
   useEffect(() => {
     context.data.getCourse(id)
       .then((course) => {
@@ -30,6 +36,7 @@ const UpdateCourse = () => {
     })
   }, []);
 
+  // Function for change events
   const handleChange = (e) => {
       const { name, value } = e.target
       
@@ -39,16 +46,17 @@ const UpdateCourse = () => {
       })) 
   }
 
+  // Function that redirects to home page
   const cancel = () => {
     history.push('/');
   }
 
-  // Update function - btn
+  // Update a existing course api request
   const submit = (e) => {
     const { emailAddress, password } = authUser;
 
   
-    // Update course payload
+    // Update a course payload
     const course = {
       title: e.target[0].value,
       description: e.target[1].value,
@@ -56,6 +64,7 @@ const UpdateCourse = () => {
       materialsNeeded: e.target[3].value,
     };
 
+    // Consuming API from server method 'PUT'
     context.data.updateCourse(id, course, {emailAddress, password})
       .then(errors => {
           if(errors.length) {

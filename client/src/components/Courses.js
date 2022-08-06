@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { Context }  from "../Context";
 
 const Courses = () => {
+  // Initial state for courses
   const [courses, setCourses] = useState([]);
+  // Declaring Context Variable
   const context = useContext(Context);
-    
+  
+  // Fetch API call from Data.js using Context
   useEffect(() => {
     context.data.getCourses()
       .then((courses) => {

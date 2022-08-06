@@ -4,12 +4,18 @@ import ReactMarkdown from "react-markdown";
 import { Context } from "../Context";
 
 const CourseDetail = () => {
+  // Id course params  
   const { id } = useParams();
+  // Declaring Context Variable
   const context = useContext(Context);
+  // Authenticated user from Context
   const authUser = context.authenticatedUser;
+  // useHistory Hook
   let history = useHistory();
+  // Initial state for a Course
   const [course, setCourse] = useState([]);
 
+  // Fetch API call from Data.js using Context
   useEffect(() => {
     context.data.getCourse(id).then((course) => {
       if (course) {
@@ -23,7 +29,7 @@ const CourseDetail = () => {
   // delete function - btn
   function handleDeleteCourse() {
     const { emailAddress, password } = authUser;
-
+    // Consuming API method 'DELETE' from the server through Data.js
     context.data
       .deleteCourse(id, { emailAddress, password })
       .then(errors => {

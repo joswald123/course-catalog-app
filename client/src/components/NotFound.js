@@ -1,5 +1,5 @@
 import React from "react";
-
+// NotFound route component
 export default () => {
     <div className="wrap">
         <h2>Not Found</h2>

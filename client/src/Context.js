@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-
 import Data from './Data';
 
+// Exporting a HOC to manage authUser, Data & actions in other components
 export const Context = React.createContext(); 
 
 export class Provider extends Component {
-
+  // Initializing data from Data.js & Cookies Library to preserve authUser
   constructor() {
     super();
     this.data = new Data();
     this.cookie = Cookies.get('authenticatedUser');
   }
-  
+  // Initializing states 
   state = {
     authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null,
     courses: null,
@@ -21,7 +21,7 @@ export class Provider extends Component {
 
   render() {
     const { authenticatedUser, course, courses } = this.state;
-
+    // Value props to be pass to consuming components
     const value = {
       authenticatedUser,
       course,
@@ -35,6 +35,8 @@ export class Provider extends Component {
     };
     
     return (
+      // All consumers that are descendants of the Provider will re-render 
+      // whenever the Provider’s value prop changes.
       <Context.Provider value={value}>
         {this.props.children}
       </Context.Provider>  
@@ -51,7 +53,7 @@ export class Provider extends Component {
           authenticatedUser: user,
         };
       });
-      // Set cookie
+      // Set cookie to preserve authUser for a day
       Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
     }
     return user;
@@ -64,11 +66,12 @@ export class Provider extends Component {
         authenticatedUser: null,
       };
     });
+    // Remove Cookies
     Cookies.remove('authenticatedUser');
   }
 
 }
-
+// Using this component lets you subscribe to a context within a function component.
 export const Consumer = Context.Consumer;
 
 /**

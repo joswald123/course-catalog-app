@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Form from './Form';
 
 export default class UserSignUp extends Component {
+  // initial state of user & errors
   state = {
     firstName: '',
     lastName: '',
@@ -68,7 +69,7 @@ export default class UserSignUp extends Component {
       </div>
     );
   }
-
+  // Function for change events
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -79,7 +80,7 @@ export default class UserSignUp extends Component {
       };
     });
   }
-
+  // Create a nwe user for authentication
   submit = () => {
         const { context } = this.props;
         const {
@@ -96,7 +97,7 @@ export default class UserSignUp extends Component {
           emailAddress,
           password,
         };
-
+        // user authentication API request method 'POST'
         context.data.createUser(user)
             .then( errors => {
                 if (errors.length) {
@@ -115,7 +116,7 @@ export default class UserSignUp extends Component {
                 this.props.history.push('/error'); // push to history stack
             });  
     }
-
+  // Function that redirects to home page  
   cancel = () => {
     this.props.history.push('/');
   }

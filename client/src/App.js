@@ -29,9 +29,7 @@ const CourseDetailWithContext = withContext(CourseDetail);
 const createCourseWithContext = withContext(CreateCourse);
 const updateCourseWithContext = withContext(UpdateCourse);
 
-
-
-
+// Path Routes 
 function App() {
   return (
     <Router>
@@ -45,7 +43,7 @@ function App() {
             <Route exact path="/courses/:id" component={CourseDetailWithContext} />
             <PrivateRoute path="/create" component={createCourseWithContext} />
             <PrivateRoute path="/courses/:id/update/" component={updateCourseWithContext} />
-            <Route component={NotFound} />
+            <Route path='*' component={NotFound} />
         </Switch>
       </div>
     </Router>

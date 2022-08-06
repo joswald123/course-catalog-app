@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Template Form that renders error & submit info 
 export default (props) => {
   const {
     cancel,
@@ -9,11 +10,13 @@ export default (props) => {
     elements,
   } = props;
 
+  // Submit function
   function handleSubmit(event) {
     event.preventDefault();
     submit(event);
   }
-
+  
+  // Cancel function
   function handleCancel(event) {
     event.preventDefault();
     cancel();

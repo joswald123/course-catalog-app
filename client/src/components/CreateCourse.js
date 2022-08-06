@@ -3,24 +3,27 @@ import { useHistory } from "react-router-dom";
 import { Context }  from "../Context";
 import Form from './Form';
 
-
 const CreateCourse = () => {
+  // Declaring Context Variable
   const  context  = useContext(Context);
+  // Authenticated user from Context
   const authUser = context.authenticatedUser;
+  // useHistory Hook
   let history = useHistory();
-  
+  // useState Hook for Errors - Empty array
   const [ errors, setErrors ] = useState([]); 
 
+  // Function that redirects to home page
   const cancel = () => {
     history.push('/');
   }
 
-  // Update function - btn
+  // Create a new course function
   const submit = (e) => {
-    
+    // Destructuring authUser Object
     const { emailAddress, password, id } = authUser
 
-    // create course payload
+    // create a new course payload
     const course = {
         title: e.target[0].value,
         description: e.target[1].value,
@@ -29,7 +32,7 @@ const CreateCourse = () => {
         userId: id,
     
     };
-
+    // Create a new course Consuming API from Data.js method 'POST'
     context.data.createCourse( course, {emailAddress, password})
         .then(errors => {
             if (errors.length) {

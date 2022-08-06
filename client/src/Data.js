@@ -1,7 +1,7 @@
 import config from './config';
 import { Buffer } from 'buffer';
 
-
+// Fetching data from the api server //
 export default class Data {
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const url = config.apiBaseUrl + path;
@@ -28,6 +28,7 @@ export default class Data {
     return fetch(url, options);
   }
 
+  // Fetch API for users //
   async getUser(emailAddress, password) { // add new parameters
     const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
     if (response.status === 200) {
@@ -56,6 +57,7 @@ export default class Data {
     }
   }
 
+   // Fetch API for Courses //
   async getCourses() { 
     const response = await this.api(`/courses`, 'GET', null);
     if (response.status === 200) {

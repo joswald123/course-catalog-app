@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Form from './Form';
 
 export default class UserSignIn extends Component {
+  // initial state of user & errors
   state = {
     emailAddress: '',
     password: '',
@@ -50,7 +51,7 @@ export default class UserSignIn extends Component {
       </div>
     );
   }
-
+  // Function for change events
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -62,11 +63,12 @@ export default class UserSignIn extends Component {
     });
   }
 
+  // Sending an existing user for authentication
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { emailAddress, password } = this.state;
-    
+    // user authentication API request method 'GET'
     context.actions.signIn(emailAddress, password)
         .then(user => {
             if(user === null) {
@@ -84,7 +86,7 @@ export default class UserSignIn extends Component {
           })
 
   }
-
+  // Function that redirects to home page
   cancel = () => {
     this.props.history.push('/');
   }
