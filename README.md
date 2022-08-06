@@ -15,6 +15,6 @@ Use React to create a client for a school database REST API. The full stack appl
 
 ### Quick Start
 
-Clone the repo-https://github.com/joswald123/course-catalog-app.git
-Go to your project folder.
-npm install & npm start (api & client folder)
+1. Clone the repo-https://github.com/joswald123/course-catalog-app.git
+2. Go to your project folder.
+3. npm install & npm start (api & client folder)
