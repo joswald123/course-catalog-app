@@ -91,10 +91,10 @@ export default class UserSignUp extends Component {
 
         // New user payload
         const user = {
-        firstName,
-        lastName,
-        emailAddress,
-        password,
+          firstName,
+          lastName,
+          emailAddress,
+          password,
         };
 
         context.data.createUser(user)

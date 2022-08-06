@@ -8,13 +8,13 @@ const Courses = () => {
     
   useEffect(() => {
     context.data.getCourses()
-    .then((courses) => {
-        if(courses) {
-            setCourses(courses)
-        } else {
-            console.log("Error");
-        }
-    })
+      .then((courses) => {
+          if(courses) {
+              setCourses(courses)
+          } else {
+              console.log("Error");
+          }
+      })
   }, []);
   
 
@@ -27,7 +27,7 @@ const Courses = () => {
             </Link>
         ))}
       
-      <a className="course--module course--add--module" href="create-course.html">
+      <Link className="course--module course--add--module" to={`/createCourse`}>
         <span className="course--add--title">
           <svg
             version="1.1"
@@ -41,7 +41,7 @@ const Courses = () => {
           </svg>
           New Course
         </span>
-      </a>
+      </Link>
     </div>
   );
 };

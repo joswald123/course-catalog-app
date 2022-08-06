@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { Context }   from "../Context";
 
 
@@ -7,6 +7,7 @@ const CourseDetail = () => {
 
     const { id } = useParams();
     const context = useContext(Context);
+    let history = useHistory();
     const [course, setCourse] = useState([]);
 
     useEffect(() => {
@@ -20,7 +21,6 @@ const CourseDetail = () => {
       })
     }, []);
 
-
     // delete function - btn
     function handleDeleteCourse() {
         const authUser = context.authenticatedUser;
@@ -28,46 +28,21 @@ const CourseDetail = () => {
         console.log(emailAddress, password);
 
         context.data.deleteCourse(id, {emailAddress, password})
-        .then(course => {
-            if(course === null) {
-                    alert('Access Denied. Please signIn with your account!');
+        .then(emailAddress => {
+            if(emailAddress === null) {
+                console.log('Access Denied. Please signIn with your account!');
     
             } else {
-                this.props.history.push('/');
-                alert('SUCCESS! Your Course was removed');
+                history.push('/');
+                console.log('SUCCESS! Your Course was removed');
             }
         })
         .catch( err => {
             console.log(err);
-            this.props.history.push('/error');
+            history.push('/error');
         })
     }
 
-
-    // function handleDeleteCourse () {
-    //     fetch(`http://localhost:5000/api/courses/` + id, {
-    //         method: 'DELETE',
-    //         // headers: {
-    //         //     'Content-Type': 'application/json',
-    //         //     Authorization:
-    //         //       'Basic ' +
-    //         //       Buffer.from(
-    //         //         `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-    //         //       ).toString('base64'),
-    //         //   },
-    //         //   body: null,
-    //     }).then((response) => {
-    //         if (response.status === 204) {
-    //           alert('Course successfully delete!.');
-    //         } else if (response.status === 400) {
-    //           response.json().then((data) => {
-    //             return data.errors;
-    //           });
-    //         } else {
-    //           throw new Error();
-    //         }
-    //       });
-    //     };
 
     return(
         <div>

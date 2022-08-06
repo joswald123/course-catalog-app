@@ -1,57 +1,38 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Context }  from "../Context";
 import Form from './Form';
-import { Buffer } from 'buffer';
+
 
 const UpdateCourse = () => {
-    const { authenticatedUser, context }  = useContext(Context);
-    const { id } = useParams();
-    
-    const [course, setCourse] = useState({
-        title: '',
-        description: '',
-        estimatedTime: '',
-        materialsNeeded: '',
-        errors: [],
-    });
 
+  const  context  = useContext(Context);
+  const { id } = useParams();
+  const authUser = context.authenticatedUser;
+  let history = useHistory();
+  
+  const [ errors, setErrors ] = useState([]);
+  const [course, setCourse] = useState({
+      title: '',
+      description: '',
+      estimatedTime: '',
+      materialsNeeded: '',
+  });
 
-    // Update function - btn
-    function handleUpdateCourse (e) {
-        e.preventDefault(e)
-        // const body: JSON.stringify(
-        //     {
-        //       ...course 
-        //     }
-        // )
-        fetch(`http://localhost:5000/api/courses/` + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization:
-                  'Basic ' +
-                  Buffer.from(
-                    `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
-                  ).toString('base64'),
-              },
-                //body: body,
-        }).then((response) => {
-            if (response.status === 204) {
-              alert('Course successfully delete!.');
-            } else if (response.status === 400) {
-              response.json().then((data) => {
-                return data.errors;
-              });
-            } else {
-              throw new Error();
-            }
-        });
-    };
+  useEffect(() => {
+    context.data.getCourse(id)
+      .then((course) => {
+        if(course) {
+            setCourse(course)
+        } else {
+            console.log("Error");
+        }
+    })
+  }, []);
 
   const handleChange = (e) => {
       const { name, value } = e.target
-      console.log(e.target)
+      
       setCourse(() => ({
           ...course, 
           [name]: value
@@ -59,38 +40,36 @@ const UpdateCourse = () => {
   }
 
   const cancel = () => {
-    this.props.history.push('/');
+    history.push('/');
   }
 
+  // Update function - btn
   const submit = (e) => {
-    e.preventDefault(e)
-    const {
-    title,
-    description,
-    estimatedTime,
-    materialsNeeded,
-    } = course; 
+    const { emailAddress, password } = authUser;
 
+  
     // Update course payload
     const course = {
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
+      title: e.target[0].value,
+      description: e.target[1].value,
+      estimatedTime: e.target[2].value,
+      materialsNeeded: e.target[3].value,
     };
 
-    context.data.updateCourse(course)
-        .then( errors => {
-            if (errors.length) {
-                this.setState({ errors });
-            } else {
-                console.log(`${title} is successfully updated!`);
-            }
-        })
-        .catch( err => { // handle rejected promises
-            console.log(err);
-            this.props.history.push('/error'); // push to history stack
-        });  
+    context.data.updateCourse(id, course, {emailAddress, password})
+      .then(errors => {
+          if(errors.length) {
+            setErrors(errors)
+
+          } else {
+              history.push('/');
+              console.log('SUCCESS! Your Course was Update!');
+          }
+      })
+      .catch( err => {
+          console.log(err);
+          history.push('/error');
+      }) 
 }
 
   return (
@@ -98,7 +77,7 @@ const UpdateCourse = () => {
       <h2>Update Course</h2>
       <Form
       cancel={cancel}
-      errors={course.errors}
+      errors={errors}
       submit={submit}
       submitButtonText="Update"
       elements={() => ( // render prop
@@ -108,10 +87,10 @@ const UpdateCourse = () => {
             <label htmlFor="courseTitle">Course Title</label>
             <input
               id="courseTitle"
-              name="courseTitle"
-              type="text"
+              name="title"
               value={ course.title }
               onChange={handleChange}
+          
             />
 
             {course.user && (
@@ -122,10 +101,11 @@ const UpdateCourse = () => {
 
             <label htmlFor="courseDescription">Course Description</label>
             <textarea 
-                id="courseDescription" 
-                name="courseDescription" 
-                value={ course.description }
-                onChange={handleChange}
+              id="courseDescription" 
+              name="description" 
+              value={ course.description }
+              onChange={handleChange}
+            
             />
           </div>
           <div>
@@ -133,17 +113,18 @@ const UpdateCourse = () => {
             <input
               id="estimatedTime"
               name="estimatedTime"
-              type="text"
               value={ course.estimatedTime }
               onChange={handleChange}
+          
             />
 
             <label htmlFor="materialsNeeded">Materials Needed</label>
             <textarea 
-                id="materialsNeeded" 
-                name="materialsNeeded"
-                value={ course.materialsNeeded }
-                onChange={handleChange}
+              id="materialsNeeded" 
+              name="materialsNeeded"
+              value={ course.materialsNeeded }
+              onChange={handleChange}
+            
             />
           </div>
         </div>

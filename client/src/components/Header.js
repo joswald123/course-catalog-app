@@ -14,7 +14,7 @@ const Header = () => {
                     {authUser ?
                         <React.Fragment>
                             <ul className="header--signedout">
-                                <li><span>Welcome, {authUser.firstName}!</span></li>
+                                <li><span>Welcome, {authUser.firstName} {authUser.lastName}!</span></li>
                                 <li><Link to="/signout">Sign Out</Link></li>
                             </ul>
                         </React.Fragment>
