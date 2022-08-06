@@ -27,7 +27,7 @@ const Courses = () => {
             </Link>
         ))}
       
-      <Link className="course--module course--add--module" to={`/createCourse`}>
+      <Link className="course--module course--add--module" to={'/create'}>
         <span className="course--add--title">
           <svg
             version="1.1"

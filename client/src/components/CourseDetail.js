@@ -47,7 +47,7 @@ const CourseDetail = () => {
         <div className="wrap">
             { authUser && authUser.id === course.userId ?
                 <React.Fragment>
-                    <Link className="button" to={'/updateCourse/' + course.id } >Update Course</Link>
+                    <Link className="button" to={`${course.id}/update`  } >Update Course</Link>
                     <a className="button" onClick={handleDeleteCourse}>Delete Course</a>
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </React.Fragment>
