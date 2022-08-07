@@ -39,11 +39,11 @@ const CreateCourse = () => {
                 setErrors(errors);    
             } else {
                 history.push('/');
-                console.log('SUCCESS! Your Course was created!');
+                // console.log('SUCCESS! Your Course was created!');
             }
         })
         .catch( err => {
-          console.log(err);
+          // console.log(err);
           history.push('/error'); // push to history stack       
         }) 
 }

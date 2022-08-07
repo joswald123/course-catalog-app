@@ -72,7 +72,7 @@ const UpdateCourse = () => {
 
           } else {
               history.push('/');
-              console.log('SUCCESS! Your Course was Update!');
+              // console.log('SUCCESS! Your Course was Update!');
           }
       })
       .catch( err => {

@@ -77,7 +77,7 @@ export default class UserSignIn extends Component {
                 });
             } else {
                 this.props.history.push(from);
-                console.log(`SUCCESS! ${emailAddress} is now signed in!`);
+                // console.log(`SUCCESS! ${emailAddress} is now signed in!`);
             }
         })
         .catch( err => {

@@ -37,11 +37,11 @@ const CourseDetail = () => {
           console.log("Access Denied. Please signIn with your account!");
         } else {
           history.push("/");
-          console.log("SUCCESS! Your Course was removed");
+          // console.log("SUCCESS! Your Course was removed");
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         history.push("/error");
       });
   }
