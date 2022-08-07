@@ -36,14 +36,14 @@ function App() {
       <div>
         <HeaderWithContext />
         <Switch>
-            <Route exact path="/" component={() => <Courses />}/> 
+            <Route exact path="/" component={() => <Courses />}/>
+            <PrivateRoute path="/courses/create" component={createCourseWithContext} />
+            <PrivateRoute path="/courses/:id/update/" component={updateCourseWithContext} />
+            <Route exact path="/courses/:id" component={CourseDetailWithContext} /> 
             <Route path="/signin" component={UserSignInWithContext} />
             <Route path="/signup" component={UserSignUpWithContext} />
             <Route path="/signout" component={UserSignOutWithContext} />
-            <Route exact path="/courses/:id" component={CourseDetailWithContext} />
-            <PrivateRoute path="/create" component={createCourseWithContext} />
-            <PrivateRoute path="/courses/:id/update/" component={updateCourseWithContext} />
-            <Route path='*' component={NotFound} />
+            <Route component={NotFound} />
         </Switch>
       </div>
     </Router>

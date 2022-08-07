@@ -73,7 +73,8 @@ export default class UserSignUp extends Component {
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
+    console.log(name);
+    console.log(value);
     this.setState(() => {
       return {
         [name]: value
@@ -100,6 +101,7 @@ export default class UserSignUp extends Component {
         // user authentication API request method 'POST'
         context.data.createUser(user)
             .then( errors => {
+              console.log(errors);
                 if (errors.length) {
                     this.setState({ errors });
                 } else {

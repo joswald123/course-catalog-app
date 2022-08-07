@@ -1,5 +1,4 @@
 import config from './config';
-import { Buffer } from 'buffer';
 
 // Fetching data from the api server //
 export default class Data {
@@ -19,9 +18,7 @@ export default class Data {
 
     // Check if auth is required
     if (requiresAuth) {    
-      const encodedCredentials = Buffer.from(`${credentials.emailAddress}:${credentials.password}`
-      ).toString('base64');
-
+      const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
 
@@ -57,7 +54,6 @@ export default class Data {
     }
   }
 
-   // Fetch API for Courses //
   async getCourses() { 
     const response = await this.api(`/courses`, 'GET', null);
     if (response.status === 200) {
@@ -84,6 +80,7 @@ export default class Data {
     }
   }
 
+  // Fetch API for Courses
   async createCourse(course, credentials) {
     const { emailAddress, password} = credentials
     const response = await this.api('/courses', 'POST', course, true, { emailAddress, password });

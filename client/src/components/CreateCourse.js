@@ -36,8 +36,7 @@ const CreateCourse = () => {
     context.data.createCourse( course, {emailAddress, password})
         .then(errors => {
             if (errors.length) {
-                setErrors(errors);
-                
+                setErrors(errors);    
             } else {
                 history.push('/');
                 console.log('SUCCESS! Your Course was created!');
@@ -45,7 +44,7 @@ const CreateCourse = () => {
         })
         .catch( err => {
           console.log(err);
-          
+          history.push('/error'); // push to history stack       
         }) 
 }
 
