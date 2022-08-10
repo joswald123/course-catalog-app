@@ -31,7 +31,7 @@ a {
   padding: 0 1rem;
 }
 header {
-  background: #57496e;
+  background: #7839d7;
   color: #fff;
   padding: 1rem 0;
   margin-bottom: 2rem;
@@ -42,7 +42,7 @@ header {
   align-items: center;
 }
 .header--logo a {
-  font-size: 1.25rem;
+  font-size: 1.70rem;
   color: #fff;
 }
 header li {
@@ -63,13 +63,34 @@ header nav a:hover {
   display: inline-block;
   margin-left: .5rem;
 }
+
+/* Added css hover style for course boxes */
 .course--module {
-  background: #7c689b;
+  background: #7839d7;
   border-radius: .5rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   display: block;
+  border:1px solid #d6d6d6;
+  box-shadow:0 2px 3px 0px rgba(0,0,0,0.25);
+  border-radius:3px;
+  transition:.2s all; 
 }
+
+.wrap:hover .course--module {
+  filter:blur(3px);
+  opacity:.5;
+  transform: scale(.98);
+  box-shadow:none;
+}
+.wrap:hover .course--module:hover{
+  transform:scale(1);
+  filter:blur(0px);
+  opacity:1;
+  box-shadow:0 8px 20px 0px rgba(0,0,0,0.125);
+}
+
+/* ==================== */
 .course--label {
   color: #fff;
   font-size: .9rem;
@@ -83,7 +104,7 @@ header nav a:hover {
 }
 .course--add--module {
   background: #ddd9e4;
-  color: #57496e;
+  color: #7839d7;
   font-weight: 300;
   font-size: 1.25rem;
 }
@@ -91,7 +112,7 @@ header nav a:hover {
   width: 20px;
   height: auto;
   margin-right: 5px;
-  fill: #57496e;
+  fill: #7839d7;
 }
 .course--detail--title {
   padding-bottom: .25rem;
@@ -119,7 +140,7 @@ header nav a:hover {
   margin: -2rem 0 2rem;
 }
 .validation--errors {
-  background: #e9e5f0;
+  background: #e4dcf1;
   padding: 1rem;
   border-radius: .5rem;
   margin-bottom: 2.5rem;
@@ -169,7 +190,7 @@ textarea {
   min-height: 300px;
 }
 .button {
-  background: #7c689b;
+  background: #7839d7;
   color: #fff;
   font-size: 1rem;
   padding: .75rem 1.5rem;
@@ -186,17 +207,17 @@ textarea {
   margin-bottom: 0;
 }
 .button:not(.button-secondary):hover {
-  background: #63537d;
+  background: #7839d7;
   cursor: pointer;
 }
 .button-secondary {
-  color: #7c689b;
+  color: #7839d7;
   background: none;
   box-shadow: 0 0 0 2px #7c689b inset;
   transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
-  color: #63537d;
+  color: #7839d7;
   box-shadow: 0 0 0 2px #63537d inset;
   cursor: pointer;
 }
